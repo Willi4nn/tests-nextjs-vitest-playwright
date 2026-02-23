@@ -8,42 +8,42 @@ vi.mock('../schemas/validate-todo-description');
 vi.mock('./make-new-todo');
 
 describe('makeValidatedTodo', () => {
-  const mock_raw_input = '  valid description  ';
-  const mock_clean_input = 'valid description';
-  const mock_todo = {
+  const mockRawInput = '  valid description  ';
+  const mockCleanInput = 'valid description';
+  const mockTodo = {
     id: '123',
-    description: mock_clean_input,
+    description: mockCleanInput,
     createdAt: 'now',
   };
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    vi.mocked(sanitizeStr).mockReturnValue(mock_clean_input);
+    vi.mocked(sanitizeStr).mockReturnValue(mockCleanInput);
     vi.mocked(validateTodoDescription).mockReturnValue({
       success: true,
-      errors: [],
+      errors: undefined,
     });
-    vi.mocked(makeNewTodo).mockReturnValue(mock_todo);
+    vi.mocked(makeNewTodo).mockReturnValue(mockTodo);
   });
 
   it('should call sanitizeStr with the raw description', () => {
-    makeValidatedTodo(mock_raw_input);
+    makeValidatedTodo(mockRawInput);
 
-    expect(sanitizeStr).toHaveBeenCalledWith(mock_raw_input);
+    expect(sanitizeStr).toHaveBeenCalledWith(mockRawInput);
   });
 
   it('should call validateTodoDescription with the sanitized description', () => {
-    makeValidatedTodo(mock_raw_input);
+    makeValidatedTodo(mockRawInput);
 
-    expect(validateTodoDescription).toHaveBeenCalledWith(mock_clean_input);
+    expect(validateTodoDescription).toHaveBeenCalledWith(mockCleanInput);
   });
 
   it('should return a new todo when description is valid', () => {
-    const result = makeValidatedTodo(mock_raw_input);
+    const result = makeValidatedTodo(mockRawInput);
 
-    expect(makeNewTodo).toHaveBeenCalledWith(mock_clean_input);
-    expect(result).toEqual({ success: true, data: mock_todo });
+    expect(makeNewTodo).toHaveBeenCalledWith(mockCleanInput);
+    expect(result).toEqual({ success: true, todo: mockTodo });
   });
 
   it('should return errors when description is invalid', () => {
@@ -53,7 +53,7 @@ describe('makeValidatedTodo', () => {
       errors: fakeErrors,
     });
 
-    const result = makeValidatedTodo(mock_raw_input);
+    const result = makeValidatedTodo(mockRawInput);
 
     expect(result).toEqual({ success: false, errors: fakeErrors });
     expect(makeNewTodo).not.toHaveBeenCalled();

@@ -2,14 +2,13 @@
 // Garante que o TypeScript reconheça os tipos do Vitest
 
 import react from '@vitejs/plugin-react';
+import dotenv from 'dotenv';
 import path from 'path';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
-// Carrega variáveis de ambiente antes de tudo
-// Estou usando a linha de comando para isso (mas deixei aqui caso queira)
-// import dotenv from 'dotenv';
-// dotenv.config({ path: '.env.test' });
+// Loads .env.test so CURRENT_ENV is set even when running `npx vitest` directly
+dotenv.config({ path: '.env.test' });
 
 export default defineConfig({
   test: {
