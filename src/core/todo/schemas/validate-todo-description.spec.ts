@@ -12,7 +12,7 @@ describe('description validation', () => {
 
     expect(result.success).toBe(false);
     expect(result.errors).toContain(
-      'Description must be longer than 3 characters.'
+      'Description must be longer than 3 characters.',
     );
   });
 });

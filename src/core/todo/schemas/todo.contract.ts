@@ -4,12 +4,12 @@ export type Todo = {
   createdAt: string;
 };
 
-type ValidTodo = {
+export type ValidTodo = {
   success: true;
   todo: Todo;
 };
 
-type InvalidTodo = {
+export type InvalidTodo = {
   success: false;
   errors: string[];
 };

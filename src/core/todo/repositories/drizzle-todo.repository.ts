@@ -25,7 +25,7 @@ export class DrizzleTodoRepository implements TodoRepository {
       where: (todoTable, { eq, or }) =>
         or(
           eq(todoTable.id, todoData.id),
-          eq(todoTable.description, todoData.description)
+          eq(todoTable.description, todoData.description),
         ),
     });
 
