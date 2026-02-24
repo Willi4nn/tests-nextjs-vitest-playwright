@@ -13,14 +13,14 @@ describe('createTodoUseCase (integration)', () => {
     await deleteTodoNoWhere();
   });
 
-  it('should return error when todo is invalid', async () => {
+  it('should return error when TODO is invalid', async () => {
     const result = (await createTodoUseCase('')) as InvalidTodo;
 
     expect(result.success).toBe(false);
     expect(result.errors).toHaveLength(1);
   });
 
-  it('should return todo when data is valid', async () => {
+  it('should return a valid TODO when data is valid', async () => {
     const description = 'any description';
     const result = (await createTodoUseCase(description)) as ValidTodo;
 
@@ -32,7 +32,7 @@ describe('createTodoUseCase (integration)', () => {
     });
   });
 
-  it('should return todo when data is valid', async () => {
+  it('should return error when TODO already exists', async () => {
     // Creates a todo one only time
     const description = 'any description';
     (await createTodoUseCase(description)) as ValidTodo;

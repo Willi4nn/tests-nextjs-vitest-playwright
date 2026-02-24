@@ -1,77 +1,42 @@
-import { revalidatePath } from 'next/cache';
-import { InvalidTodo, ValidTodo } from '../schemas/todo.contract';
-import { createTodoUseCase } from '../usecases/create-todo.usecase';
+import { makeTestTodoMocks } from '@/core/__tests__/utils/make-test-todo-mocks';
 import { createTodoAction } from './create-todo.action';
 
 vi.mock('next/cache', () => ({
   revalidatePath: vi.fn(),
 }));
 
-vi.mock('../usecases/create-todo.usecase', () => ({
-  createTodoUseCase: vi.fn(),
-}));
-
-const mockRevalidatePath = vi.mocked(revalidatePath);
-const mockCreateTodoUseCase = vi.mocked(createTodoUseCase);
-
-const mockDescription = 'Buy groceries';
-
-const mockSuccessResult = {
-  success: true as const,
-  todo: {
-    id: 'any-id',
-    description: mockDescription,
-    createdAt: 'any-date',
-  },
-} as ValidTodo;
-
-const mockFailureResult = {
-  success: false as const,
-  errors: ['Description is too short'],
-} as InvalidTodo;
-
 describe('createTodoAction (unit)', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-    mockCreateTodoUseCase.mockResolvedValue(mockSuccessResult);
-  });
-
   test('should call createTodoUseCase with correct description', async () => {
-    const expectedParamCall = 'description that will pass validation';
-    await createTodoAction(expectedParamCall);
-
-    expect(createTodoUseCase).toHaveBeenCalledExactlyOnceWith(
-      expectedParamCall,
-    );
-  });
-
-  test('should call revalidatePath with correct path', async () => {
+    const { createTodoUseCaseSpy } = makeTestTodoMocks();
     const description = 'description that will pass validation';
     await createTodoAction(description);
 
-    expect(mockRevalidatePath).toHaveBeenCalledExactlyOnceWith('/');
+    expect(createTodoUseCaseSpy).toHaveBeenCalledExactlyOnceWith(description);
+  });
+
+  test('should call revalidatePath with correct path', async () => {
+    const { revalidatePathMocked } = makeTestTodoMocks();
+    await createTodoAction('description that will pass validation');
+
+    expect(revalidatePathMocked).toHaveBeenCalledExactlyOnceWith('/');
   });
 
   test('should return the result of createTodoUseCase with correct success status', async () => {
+    const { createTodoUseCaseSpy, successResult } = makeTestTodoMocks();
     const description = 'description that will pass validation';
     const result = await createTodoAction(description);
 
-    expect(createTodoUseCase).toHaveBeenCalledWith(description);
-    expect(result).toStrictEqual(mockSuccessResult);
+    expect(createTodoUseCaseSpy).toHaveBeenCalledWith(description);
+    expect(result).toStrictEqual(successResult);
   });
 
   test('should return the result of createTodoUseCase with correct error message if failed', async () => {
-    mockCreateTodoUseCase.mockResolvedValue(mockFailureResult);
-    const description = 'description that will fail validation';
-    const result = await createTodoAction(description);
+    const { createTodoUseCaseSpy, errorResult } = makeTestTodoMocks();
+    createTodoUseCaseSpy.mockResolvedValue(errorResult);
+    const result = await createTodoAction(
+      'description that will fail validation',
+    );
 
-    expect(result).toStrictEqual(mockFailureResult);
+    expect(result).toStrictEqual(errorResult);
   });
-});
-
-test('should return the result of createTodoUseCase with correct error message if failed', async () => {
-  mockCreateTodoUseCase.mockResolvedValue(mockFailureResult);
-  const description = 'description that will fail validation';
-  const result = await createTodoAction(description);
-  expect(result).toStrictEqual(mockFailureResult);
 });
