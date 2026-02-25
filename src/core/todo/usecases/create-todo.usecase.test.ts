@@ -33,12 +33,12 @@ describe('createTodoUseCase (integration)', () => {
   });
 
   it('should return error when TODO already exists', async () => {
-    // Creates a todo one only time
+    // Cria um TODO para garantir que já existe um com a mesma descrição
     const description = 'any description';
     (await createTodoUseCase(description)) as ValidTodo;
     const result = (await createTodoUseCase(description)) as InvalidTodo;
 
-    // The second creation should fail because of the UNIQUE constraint in the repository
+    // A segunda criação deve falhar por já existir um TODO com a mesma descrição
     expect(result.success).toBe(false);
     expect(result.errors).toStrictEqual([
       'Todo with the same ID or description already exists.',

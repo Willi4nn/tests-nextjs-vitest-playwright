@@ -15,14 +15,14 @@ describe('DrizzleTodoRepository (integration)', () => {
   });
 
   describe('findAll', () => {
-    test('should return an empty array if the table is empty', async () => {
+    it('should return an empty array if the table is empty', async () => {
       const { repository } = await makeTestTodoRepository();
       const result = await repository.findAll();
       expect(result).toStrictEqual([]);
       expect(result).toHaveLength(0);
     });
 
-    test('should return all TODOs in descending order', async () => {
+    it('should return all TODOs in descending order', async () => {
       const { repository } = await makeTestTodoRepository();
       await insertTestTodos();
       const result = await repository.findAll();
@@ -35,7 +35,7 @@ describe('DrizzleTodoRepository (integration)', () => {
   });
 
   describe('create', () => {
-    test('should create a TODO if the data is valid', async () => {
+    it('should create a TODO if the data is valid', async () => {
       const { repository, todos } = await makeTestTodoRepository();
       const newTodo = await repository.create(todos[0]);
       expect(newTodo).toStrictEqual({
@@ -44,7 +44,7 @@ describe('DrizzleTodoRepository (integration)', () => {
       });
     });
 
-    test('should fail if a TODO with the same description already exists', async () => {
+    it('should fail if a TODO with the same description already exists', async () => {
       const { repository, todos } = await makeTestTodoRepository();
 
       await repository.create(todos[0]);
@@ -62,7 +62,7 @@ describe('DrizzleTodoRepository (integration)', () => {
       });
     });
 
-    test('should fail if a TODO with the same ID already exists', async () => {
+    it('should fail if a TODO with the same ID already exists', async () => {
       const { repository, todos } = await makeTestTodoRepository();
 
       await repository.create(todos[0]);
@@ -80,7 +80,7 @@ describe('DrizzleTodoRepository (integration)', () => {
       });
     });
 
-    test('should fail if both ID and description are the same', async () => {
+    it('should fail if both ID and description are the same', async () => {
       const { repository, todos } = await makeTestTodoRepository();
 
       await repository.create(todos[0]);
@@ -100,7 +100,7 @@ describe('DrizzleTodoRepository (integration)', () => {
   });
 
   describe('delete', () => {
-    test('should delete a TODO if it exists', async () => {
+    it('should delete a TODO if it exists', async () => {
       const { repository, todos } = await makeTestTodoRepository();
       await insertTestTodos();
       const result = await repository.delete(todos[0].id);
@@ -111,7 +111,7 @@ describe('DrizzleTodoRepository (integration)', () => {
       });
     });
 
-    test('should fail if the TODO does not exist', async () => {
+    it('should fail if the TODO does not exist', async () => {
       const { repository } = await makeTestTodoRepository();
       const result = await repository.delete('any id');
 

@@ -5,7 +5,7 @@ const config: StorybookConfig = {
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
     '../src/**/stories.@(js|jsx|ts|tsx)',
   ],
-  addons: ['@storybook/addon-essentials'],
+  addons: ['@storybook/addon-docs'],
   framework: '@storybook/nextjs',
   staticDirs: ['../public'],
   features: {

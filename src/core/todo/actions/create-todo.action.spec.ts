@@ -6,7 +6,7 @@ vi.mock('next/cache', () => ({
 }));
 
 describe('createTodoAction (unit)', () => {
-  test('should call createTodoUseCase with correct description', async () => {
+  it('should call createTodoUseCase with correct description', async () => {
     const { createTodoUseCaseSpy } = makeTestTodoMocks();
     const description = 'description that will pass validation';
     await createTodoAction(description);
@@ -14,14 +14,14 @@ describe('createTodoAction (unit)', () => {
     expect(createTodoUseCaseSpy).toHaveBeenCalledExactlyOnceWith(description);
   });
 
-  test('should call revalidatePath with correct path', async () => {
+  it('should call revalidatePath with correct path', async () => {
     const { revalidatePathMocked } = makeTestTodoMocks();
     await createTodoAction('description that will pass validation');
 
     expect(revalidatePathMocked).toHaveBeenCalledExactlyOnceWith('/');
   });
 
-  test('should return the result of createTodoUseCase with correct success status', async () => {
+  it('should return the result of createTodoUseCase with correct success status', async () => {
     const { createTodoUseCaseSpy, successResult } = makeTestTodoMocks();
     const description = 'description that will pass validation';
     const result = await createTodoAction(description);
@@ -30,7 +30,7 @@ describe('createTodoAction (unit)', () => {
     expect(result).toStrictEqual(successResult);
   });
 
-  test('should return the result of createTodoUseCase with correct error message if failed', async () => {
+  it('should return the result of createTodoUseCase with correct error message if failed', async () => {
     const { createTodoUseCaseSpy, errorResult } = makeTestTodoMocks();
     createTodoUseCaseSpy.mockResolvedValue(errorResult);
     const result = await createTodoAction(

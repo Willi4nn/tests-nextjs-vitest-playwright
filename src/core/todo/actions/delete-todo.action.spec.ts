@@ -8,7 +8,7 @@ vi.mock('next/cache', () => {
 });
 
 describe('deleteTodoAction (unit)', () => {
-  test('deve chamar o deleteTodoUseCase com os valores corretos', async () => {
+  it('should call deleteTodoUseCase with the correct values', async () => {
     const { deleteTodoUseCaseSpy } = makeTestTodoMocks();
     const fakeId = 'any-id';
     await deleteTodoAction(fakeId);
@@ -16,7 +16,7 @@ describe('deleteTodoAction (unit)', () => {
     expect(deleteTodoUseCaseSpy).toHaveBeenCalledExactlyOnceWith(fakeId);
   });
 
-  test('deve chamar o revalidatePath se o usecase retornar sucesso', async () => {
+  it('should call revalidatePath if the usecase returns success', async () => {
     const { revalidatePathMocked } = makeTestTodoMocks();
     const fakeId = 'any-id';
     await deleteTodoAction(fakeId);
@@ -24,7 +24,7 @@ describe('deleteTodoAction (unit)', () => {
     expect(revalidatePathMocked).toHaveBeenCalledExactlyOnceWith('/');
   });
 
-  test('deve retornar o mesmo valor do usecase em caso de sucesso', async () => {
+  it('should return the same value from the usecase on success', async () => {
     const { successResult } = makeTestTodoMocks();
     const fakeId = 'any-id';
     const result = await deleteTodoAction(fakeId);
@@ -32,7 +32,7 @@ describe('deleteTodoAction (unit)', () => {
     expect(result).toStrictEqual(successResult);
   });
 
-  test('deve retornar o mesmo valor do usecase em caso de erro', async () => {
+  it('should return the same value from the usecase on error', async () => {
     const { deleteTodoUseCaseSpy, errorResult } = makeTestTodoMocks();
     const fakeId = 'any-id';
 

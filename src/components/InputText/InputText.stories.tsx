@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { HandMetalIcon, SmileIcon, StarIcon } from 'lucide-react';
-import { Button } from '.';
+import { Button } from '../Button';
 
 const iconMap = {
   none: null,
