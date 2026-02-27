@@ -1,0 +1,24 @@
+[22:20:16.106] [INFO] storybook v10.2.13
+[22:20:17.962] [DEBUG] Getting package.json info for D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/package.json...
+[22:20:19.168] [INFO] Storybook collects completely anonymous usage telemetry. We use it to shape Storybook's roadmap and prioritize features. You can learn more, including how to opt out, at https://storybook.js.org/telemetry
+[22:20:19.794] [DEBUG] Serving static files from [36mpublic[39m at [36m/[39m
+[22:20:19.799] [INFO] Starting...
+[22:20:20.016] [WARN] No story files found for the specified pattern: [34msrc\**\stories.@(js|jsx|ts|tsx)[39m
+[22:20:20.296] [DEBUG] Starting preview..
+[22:20:20.344] [INFO] Using implicit CSS loaders
+[22:20:20.691] [INFO] Using SWC as compiler
+[22:20:20.710] [ERROR] Failed to build the preview
+[22:20:20.713] [ERROR] [38;2;241;97;97mReferenceError: __dirname is not defined[39m
+    at Object.webpackFinal (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/.storybook/main.ts:18:11)
+    at file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/storybook/dist/_node-chunks/chunk-CUCNHZNT.js:10114:36
+    at async Object.webpack (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/@storybook/builder-webpack5/dist/presets/custom-webpack-preset.js:282:28)
+    at async starter (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/@storybook/builder-webpack5/dist/index.js:753:16)
+    at async Module.start (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/@storybook/builder-webpack5/dist/index.js:857:14)
+    at async storybookDevServer (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/storybook/dist/core-server/index.js:7241:83)
+    at async buildOrThrow (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/storybook/dist/core-server/index.js:4504:12)
+    at async buildDevStandalone (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/storybook/dist/core-server/index.js:7611:66)
+    at async withTelemetry (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/storybook/dist/_node-chunks/chunk-WGZQUMPK.js:218:12)
+    at async dev (file:///D:/Willian/Downloads/workspace/will/tests-nextjs-vitest-playwright/node_modules/storybook/dist/bin/core.js:2734:3)
+[22:20:20.717] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.
+[22:20:22.749] [PROMPT] Would you like to send anonymous crash reports to improve Storybook and fix bugs faster? {"choice":true}

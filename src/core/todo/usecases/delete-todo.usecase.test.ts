@@ -18,13 +18,13 @@ describe('deleteTodoUseCase (integration)', () => {
     const deleteResultEmpty = await deleteTodoUseCase('');
     expect(deleteResultEmpty).toStrictEqual({
       success: false,
-      error: 'Invalid ID',
+      errors: ['Invalid ID'],
     });
 
     const deleteResultBlank = await deleteTodoUseCase('   ');
     expect(deleteResultBlank).toStrictEqual({
       success: false,
-      error: 'Invalid ID',
+      errors: ['Invalid ID'],
     });
   });
 

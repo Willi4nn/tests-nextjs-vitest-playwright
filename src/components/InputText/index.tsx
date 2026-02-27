@@ -1,16 +1,20 @@
 import clsx from 'clsx';
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 
 export type InputTextProps = {
   labelText?: string;
   errorMessage?: string;
 } & React.ComponentProps<'input'>;
 
-export function InputText({
-  labelText = '',
-  errorMessage = '',
-  ...props
-}: InputTextProps) {
+export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
+  function InputText(
+    {
+      labelText = '',
+      errorMessage = '',
+      ...props
+    }: InputTextProps,
+    ref,
+  ) {
   const id = useId();
   const errorId = `${id}-error`;
 
@@ -39,6 +43,7 @@ export function InputText({
       <input
         {...props}
         id={id}
+        ref={ref}
         aria-label={ariaLabel}
         aria-invalid={isInvalid}
         aria-describedby={describedBy}
@@ -52,4 +57,5 @@ export function InputText({
       )}
     </div>
   );
-}
+  },
+);

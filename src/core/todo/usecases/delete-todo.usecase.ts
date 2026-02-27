@@ -7,7 +7,7 @@ export async function deleteTodoUseCase(id: string) {
   if (!cleanId) {
     return {
       success: false,
-      error: 'Invalid ID',
+      errors: ['Invalid ID'],
     };
   }
   const deleteResult = await todoRepository.delete(cleanId);

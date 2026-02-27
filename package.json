@@ -2,6 +2,11 @@
   "name": "tests-nextjs-vitest-playwright",
   "version": "0.1.0",
   "private": true,
+  "overrides": {
+    "@storybook/nextjs": {
+      "next": "$next"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -66,7 +71,6 @@
     "typescript": "^5",
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.0.18",
-    "eslint-plugin-storybook": "10.2.12",
-    "@storybook/addon-docs": "^10.2.12"
+    "eslint-plugin-storybook": "10.2.12"
   }
 }

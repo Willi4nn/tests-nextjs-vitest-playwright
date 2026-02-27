@@ -1,47 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
-import { HandMetalIcon, SmileIcon, StarIcon } from 'lucide-react';
-import { Button } from '../Button';
+import type { Meta, StoryObj } from '@storybook/react';
+import { InputText } from '.';
 
-const iconMap = {
-  none: null,
-  hand: <HandMetalIcon />,
-  star: <StarIcon />,
-  smile: <SmileIcon />,
-};
-
-// Esse tipo estende o tipo do Button para adicionar propriedades
-// exclusivas para o Story, como "icon", por exemplo.
-type ButtonStoryProps = React.ComponentProps<typeof Button> & {
-  icon?: keyof typeof iconMap;
-};
-
-// Usando ButtonStoryProps porque icon não existe no botão
-const meta: Meta<ButtonStoryProps> = {
-  title: 'Components/Forms/Button',
-  component: Button,
-  argTypes: {
-    icon: {
-      control: { type: 'select' },
-      options: ['none', 'hand', 'star', 'smile'],
-      description: 'Ícone opcional exibido à esquerda do texto',
-      table: {
-        type: { summary: 'ReactNode' },
-        defaultValue: { summary: 'none' },
-      },
-    },
-    children: {
-      control: 'text',
-    },
-    variant: {
-      name: 'Variações',
-      options: ['default', 'ghost', 'danger'],
-      control: { type: 'select' },
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
-    },
-  },
+const meta: Meta<typeof InputText> = {
+  title: 'Components/Forms/InputText',
+  component: InputText,
   decorators: [
     (Story) => (
       <div className="max-w-5xl mx-auto p-12">
@@ -49,64 +11,74 @@ const meta: Meta<ButtonStoryProps> = {
       </div>
     ),
   ],
+  tags: ['autodocs'],
+  argTypes: {
+    type: {
+      control: 'select',
+      options: ['text', 'password', 'email', 'tel', 'url', 'search'],
+      description: 'Esse é o tipo do input',
+    },
+    labelText: {
+      control: 'text',
+      description: 'O label do input',
+    },
+    errorMessage: {
+      control: 'text',
+      description: 'Mensagem de erro ao usuário',
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Um exemplo de uso para o input',
+    },
+    required: {
+      control: 'boolean',
+      description: 'O campo é requerido',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Campo está desativado',
+    },
+    readOnly: {
+      control: 'boolean',
+      description: 'Apenas leitura',
+    },
+  },
 };
 
 export default meta;
 
-// Usando ButtonStoryProps porque icon não existe no botão
+type Story = StoryObj<typeof InputText>;
 
-type Story = StoryObj<ButtonStoryProps>;
-
-const render = ({ icon, children, ...args }: ButtonStoryProps) => (
-  <Button {...args}>
-    <>
-      {icon !== 'none' && iconMap[icon as keyof typeof iconMap]}{' '}
-      <span>{children}</span>
-    </>
-  </Button>
-);
-
-export const Playground: Story = {
+export const Default: Story = {
   args: {
-    children: 'Texto do botão',
-    icon: 'hand',
+    type: 'text',
+    labelText: 'Input Label',
+    errorMessage: '',
+    placeholder: 'Digite algo...',
+    required: true,
+    disabled: false,
+    readOnly: false,
+    defaultValue: 'Este é o valor padrão do input',
   },
-  render,
 };
 
-export const Large: Story = {
+export const WithError: Story = {
   args: {
-    ...Playground.args,
-    children: 'Click me',
-    icon: 'star',
-    size: 'lg',
+    ...Default.args,
+    errorMessage: 'Essa é a mensagem de erro',
   },
-  render: ({ icon, children, ...args }: ButtonStoryProps) => (
-    <div className="flex gap-6  flex-wrap">
-      <Button {...args} className="flex-1">
-        <>
-          {icon !== 'none' && iconMap[icon as keyof typeof iconMap]}{' '}
-          <span>{children}</span>
-        </>
-      </Button>
+};
 
-      <Button variant="ghost" {...args} className="flex-1">
-        <>
-          {iconMap['hand']}
-          <span>{children}</span>
-        </>
-      </Button>
+export const Disabled: Story = {
+  args: {
+    ...Default.args,
+    disabled: true,
+  },
+};
 
-      <Button variant="danger" {...args} className="flex-1">
-        <>
-          {iconMap['smile']}
-          <span>{children}</span>
-        </>
-      </Button>
-
-      <Button variant="default" {...args} className="flex-1">
-        Submit
-      </Button>
-    </div>
-  ),
+export const ReadOnly: Story = {
+  args: {
+    ...Default.args,
+    readOnly: true,
+  },
 };
