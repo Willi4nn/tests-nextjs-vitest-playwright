@@ -13,7 +13,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "format:fix": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,json,css,md}\"",
     "drizzle:generate": "dotenv -e .env.development -- drizzle-kit generate",
     "drizzle:migrate": "dotenv -e .env.development -- drizzle-kit migrate",
     "drizzle:migrate:dev": "dotenv -e .env.development -- drizzle-kit migrate",
@@ -27,10 +28,10 @@
     "test:int": "dotenv -e .env.test -- vitest run --exclude 'src/**/*.{spec,e2e}.{ts,tsx}' --no-file-parallelism",
     "test:int:watch": "dotenv -e .env.test -- vitest --exclude 'src/**/*.{spec,e2e}.{ts,tsx}' --no-file-parallelism",
     "test:cov": "dotenv -e .env.test -- vitest run --coverage --no-file-parallelism",
-    "test:e2e": "dotenv -e .env.e2e -- playwright test",
-    "test:e2e:headed": "dotenv -e .env.e2e -- playwright test --headed",
-    "test:e2e:debug": "dotenv -e .env.e2e -- playwright test --debug",
-    "test:e2e:ui": "dotenv -e .env.e2e -- playwright test --ui",
+    "test:e2e": "dotenv -e .env.e2e -- playwright test --reporter null",
+    "test:e2e:headed": "dotenv -e .env.e2e -- playwright test --headed --reporter null",
+    "test:e2e:debug": "dotenv -e .env.e2e -- playwright test --debug --reporter null",
+    "test:e2e:ui": "dotenv -e .env.e2e -- playwright test --ui --reporter null",
     "test:e2e:report": "dotenv -e .env.e2e -- playwright show-report",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -46,6 +47,7 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@storybook/nextjs": "^10.2.12",
     "@storybook/react": "^10.2.12",
     "@tailwindcss/postcss": "^4",
@@ -63,6 +65,9 @@
     "drizzle-kit": "^0.31.9",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-storybook": "10.2.12",
     "jsdom": "^28.1.0",
     "prettier": "^3.8.1",
     "storybook": "^10.2.12",
@@ -70,7 +75,6 @@
     "tsx": "^4.21.0",
     "typescript": "^5",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.0.18",
-    "eslint-plugin-storybook": "10.2.12"
+    "vitest": "^4.0.18"
   }
 }
